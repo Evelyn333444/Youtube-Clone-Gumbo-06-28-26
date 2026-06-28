@@ -1,5 +1,12 @@
 {
-  "name": "youtubeclone",
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tom Nagle",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --exit-child --transpile-only src/main.ts"
+  },  
   "packageManager": "yarn@4.12.0",
   "dependencies": {
     "@typegoose/typegoose": "^13.3.0",

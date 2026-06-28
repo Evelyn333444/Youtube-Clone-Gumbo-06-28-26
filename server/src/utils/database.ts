@@ -1,0 +1,24 @@
+import mongoose from 'mongoose'
+import logger from "./logger"
+
+const DB_CONNECTION_STRING = 
+    process.env.DB_CONNECTION_STRING || "mongodb+srv://brackesb12_db_user:F2MfcpUc7MYjmUYF@youtubeclone062826.ohskhze.mongodb.net/?appName=YoutubeClone062826"
+
+    export async function connectToDatabase(){
+        try{
+            await mongoose.connect(DB_CONNECTION_STRING)
+            logger.info("Connect to database");
+        }
+            catch (e) {
+            logger.error(e, "Failed to connect to database. Goodbye")  
+            process.exit(1);
+        }
+    }
+
+export async function disconnectFromDatabase(){
+    await mongoose.connection.close()
+
+    logger.info("Disconnected from database");
+
+    return;
+}    
