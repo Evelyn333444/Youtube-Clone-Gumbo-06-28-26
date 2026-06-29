@@ -1,14 +1,10 @@
 import {getModelForClass, prop, pre} from '@typegoose/typegoose'
 import argon2 from "argon2";
 
-@pre<User>('save', function(next){
-if(this.isModified('password') || this.isNew){
-    const hash = await argon2.hash(this.password)
-
-    this.password = hash
-
-    return next();
-}
+@pre<User>("save", async function () {
+    if (this.isModified("password") || this.isNew) {
+        this.password = await argon2.hash(this.password);
+    }
 })
 
 export class User {

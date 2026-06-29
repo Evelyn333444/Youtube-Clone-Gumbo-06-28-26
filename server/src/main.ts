@@ -5,7 +5,10 @@ import helmet from "helmet";
 import { CORS_ORIGIN } from "./constants";
 import { connectToDatabase, disconnectFromDatabase } from "./utils/database";
 import logger from "./utils/logger";
-import userRoute from './modules/user/user.route'
+import userRoute from './modules/user/user.route';
+import authRoute from './modules/auth/auth.route';
+import deserializeUser from "./middleware/deserializeUser";
+import videoRoute from "./modules/videos/video.route";
 
 const PORT= process.env.PORT || 4000;
 
@@ -20,8 +23,11 @@ app.use(
 })
 );
 app.use(helmet());
+app.use(deserializeUser);
 
-app.use('/api/users, userRoute')
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/video", videoRoute);
 
 const server = app.listen(PORT, async () =>{
     await connectToDatabase();
@@ -32,7 +38,7 @@ const signals = ["SIGTERM", "SIGINT"]
 
 function gracefulShutdown(signal: string){
     process.on(signal, async () =>{
-        logger.info("Goodbye, got signal", signal);
+        logger.info({ signal }, "Goodbye, got signal");
         server.close()
 
 //disconnect from the db

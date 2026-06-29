@@ -1,5 +1,6 @@
-import {Request, Response} from 'express'
+import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { RegisterUserBody } from "./user.schema";
 import { createUser } from "./user.service";
 
 export async function registerUserHandler(req: Request<{}, {}, RegisterUserBody>, res: Response) {
@@ -11,11 +12,12 @@ export async function registerUserHandler(req: Request<{}, {}, RegisterUserBody>
         await createUser({username, email, password})
 
         return res.status(StatusCodes.CREATED).send("user created successfully");
-    }catch(e){
-if(e.code === 11000){
-return res.status(StatusCodes.CONFLICT).send("User already exists")
-}
+    } catch (e) {
+        if (e && typeof e === "object" && "code" in e && (e as { code: number }).code === 11000) {
+            return res.status(StatusCodes.CONFLICT).send("User already exists");
+        }
 
-return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e.message)
-}
+        const message = e instanceof Error ? e.message : "Something went wrong";
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(message);
+    }
 }

@@ -10,10 +10,12 @@ export const registerUserSchema = {
         }),
         password: string({
             required_error: "password is required",
-        }).min(6, "Password must be at least 6 characters long").max(64, "Password must be less than 64 characters long.")
+        }),
+            .min(6, "Password must be at least 6 characters long")
+            .max(64, "Password must be less than 64 characters long."),
         confirmPassword: string({
             required_error: "confirmPassword is required",
-        }), 
+        }),
     }).refine((data) => data.password === data.confirmPassword, {
         message: 'Passwords do not match',
         path: ["confirmPassword"]
@@ -21,3 +23,5 @@ export const registerUserSchema = {
 };
 
 export type RegisterUserBody = TypeOf<typeof registerUserSchema.body>;
+
+

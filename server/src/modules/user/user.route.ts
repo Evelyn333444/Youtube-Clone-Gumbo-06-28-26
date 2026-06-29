@@ -5,6 +5,10 @@ import { registerUserSchema } from './user.schema';
 
 const router = express.Router ()
 
+router.get('/', requireUser, (req, res) => {
+    return res.send(res.locals.user);
+});
+
 router.post("/", processRequestBody(registerUserSchema.body),registerUserHandler);
 
 export default router;
