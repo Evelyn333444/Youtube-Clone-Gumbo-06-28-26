@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import { StatusCodes } from "http-status-codes";
 import { createUser } from "./user.service";
 
-export async function registerUserHandler(req: Request, res: Response) {
+export async function registerUserHandler(req: Request<{}, {}, RegisterUserBody>, res: Response) {
     const {username, email, password} = req.body
 
     console.log(req.body);
