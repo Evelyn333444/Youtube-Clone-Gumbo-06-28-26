@@ -1,4 +1,4 @@
-import {getModelForClass, prop, ref} from '@typegoose/typegoose';
+import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { customAlphabet } from "nanoid";
 import { User } from "../user/user.model";
 
