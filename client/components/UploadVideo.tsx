@@ -13,7 +13,7 @@ import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import { ArrowBigUpLine } from "tabler-icons-react";
 import { useMutation } from "react-query";
 import { updateVideo, uploadVideo } from "@/api";
-import { useForm } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
 import { Video } from "@/types";
 import { AxiosError, AxiosResponse } from "axios";
 import { useVideo } from "@/context/videos";
