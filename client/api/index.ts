@@ -15,7 +15,7 @@ export async function uploadVideo({
   formData: FormData;
   config?: AxiosRequestConfig;
 }) {
-  const response = await axiosInstance.post<Video>("/video", formData, {
+  const response = await axiosInstance.post<Video>("/videos", formData, {
     ...config,
     headers: {
       ...config?.headers,
@@ -37,7 +37,7 @@ export function updateVideo({
   description: string;
   published: boolean;
 }) {
-  return axiosInstance.patch<Video>(`/video/${videoId}`, {
+  return axiosInstance.patch<Video>(`/videos/${videoId}`, {
     title,
     description,
     published,
@@ -45,7 +45,7 @@ export function updateVideo({
 }
 
 export async function getVideos() {
-  const response = await axiosInstance.get<Video[]>("/video");
+  const response = await axiosInstance.get<Video[]>("/videos");
   return response.data;
 }
 
